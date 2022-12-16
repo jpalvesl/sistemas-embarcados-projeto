@@ -1,8 +1,8 @@
-import Paho from 'paho-mqtt'
+import {Client, Message} from 'paho-mqtt'
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const client = new Paho.Client(
+const client = new Client(
   "broker.hivemq.com",
   8000,
   "jpalvesl"
@@ -11,14 +11,17 @@ const client = new Paho.Client(
 export default function App() {
   const [value, setValue] = useState(0);
 
-  function onMessage(message: any) {
-    if (message.destinationName === "mqtt-async-test/value") {
-      setValue(Number(message.payloadString))
+  function onMessage(message: Message) {
+    const topic = message.destinationName
+    const data = message.payloadString
+
+    if (topic === "mqtt-async-test/value") {
+      setValue(Number(data))
     }
   }
 
-  function changeValue(client: Paho.Client) {
-    const message = new Paho.Message((value+1).toString())
+  function changeValue(client: Client) {
+    const message = new Message((value+1).toString())
     message.destinationName = "mqtt-async-test/value"
     client.send(message);
   }
@@ -43,7 +46,7 @@ export default function App() {
         style={styles.button}
         onPress={() => changeValue(client)}
       >
-        <Text>Oi teste</Text>
+        <Text style={{ color: "#fff", fontSize: 18 }}>Botão</Text>
       </TouchableOpacity>
     </View>
   );
@@ -58,7 +61,10 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 150,
-    height: 150,
+    height: 60,
+    borderRadius: 16,
+    marginTop: 8,
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center"
   }
