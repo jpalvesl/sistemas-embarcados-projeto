@@ -3,6 +3,7 @@
 
 
 #include "wifi.h"
+#include "mqtt-lib.h"
 
 void app_main(void)
 {
@@ -13,4 +14,6 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
     wifi_start();
+
+    mqtt_start();
 }
