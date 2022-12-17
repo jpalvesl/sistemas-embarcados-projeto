@@ -13,7 +13,4 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
     wifi_start();
-    while (1)
-    {
-    }
 }
