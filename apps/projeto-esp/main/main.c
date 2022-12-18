@@ -4,6 +4,7 @@
 
 #include "wifi.h"
 #include "mqtt-lib.h"
+// #include "dht.c"
 
 void app_main(void)
 {

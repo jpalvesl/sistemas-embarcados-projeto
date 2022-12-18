@@ -19,6 +19,10 @@
     "task.h": "c",
     "mqtt_client.h": "c",
     "esp_bt.h": "c",
-    "mqtt-lib.h": "c"
+    "mqtt-lib.h": "c",
+    "ets_sys.h": "c",
+    "string.h": "c",
+    "esp_log.h": "c",
+    "esp_idf_lib_helpers.h": "c"
   }
 }
