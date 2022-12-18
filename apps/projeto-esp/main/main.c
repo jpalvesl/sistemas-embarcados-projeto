@@ -1,10 +1,27 @@
 #include <stdio.h>
 #include "nvs_flash.h"
-
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 #include "wifi.h"
 #include "mqtt-lib.h"
-// #include "dht.c"
+#include "dht.h"
+
+#define SENSOR_TYPE DHT_TYPE_AM2301
+#define DHT_GPIO GPIO_NUM_2
+
+int isLuzLigada = 0;
+
+// typedef struct estadoVariaveis {
+//     // estados que podem ser alterados tanto por botoes quanto pelo mqtt
+//     int isAlarmeLigado = 0;
+//     int isLuzLigada = 0;
+
+//     // sensores
+//     float temperatura = 0;
+//     int hasPresenca = 0;
+// } estadoVariaveis;
+
 
 void app_main(void)
 {
@@ -17,4 +34,28 @@ void app_main(void)
     wifi_start();
 
     mqtt_start();
+
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    mqtt_subscribe("/embarcados/luz");
+    mqtt_subscribe("/embarcados/alarme");
+
+    mqtt_publish("/embarcados/temperatura", "40");
+    mqtt_publish("/embarcados/movimento", "1");
+
+    while(1) {
+        printf("Luz: %d\n", isLuzLigada);
+        vTaskDelay(200 / portTICK_PERIOD_MS);
+    }
+    // float umidade, temperatura;
+    // gpio_set_direction(DHT_GPIO, GPIO_MODE_INPUT);
+    // gpio_set_pull_mode(DHT_GPIO, GPIO_PULLUP_ONLY);
+
+    // while (1)
+    // {
+    //     if (dht_read_float_data(SENSOR_TYPE, DHT_GPIO, &umidade, &temperatura) == ESP_OK) {
+    //         printf("Umidade: %f\nTemperatura: %f\n", umidade, temperatura);
+    //     }
+    //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+    // }
+    
 }
