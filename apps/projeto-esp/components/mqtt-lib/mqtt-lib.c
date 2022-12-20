@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include "mqtt-lib.h"
 
-void func(void)
-{
-
-}
 #include <stdio.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -14,6 +10,8 @@ void func(void)
 #include "nvs_flash.h"
 #include "esp_event.h"
 #include "esp_netif.h"
+#include "driver/gpio.h"
+
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -27,8 +25,6 @@ void func(void)
 #include "esp_log.h"
 #include "mqtt_client.h"
 
-
-#include "mqtt-lib.h"
 
 #define TAG "MQTT"
 

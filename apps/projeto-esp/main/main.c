@@ -6,9 +6,11 @@
 #include "wifi.h"
 #include "mqtt-lib.h"
 #include "dht.h"
+#include "sensor-movimento.h"
 
 #define SENSOR_TYPE DHT_TYPE_AM2301
 #define DHT_GPIO GPIO_NUM_2
+#define PIR_PIN GPIO_NUM_9
 
 int isLuzLigada = 0;
 
@@ -25,27 +27,28 @@ int isLuzLigada = 0;
 
 void app_main(void)
 {
-    esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
-        ret = nvs_flash_init();
-    }
-    ESP_ERROR_CHECK(ret);
-    wifi_start();
+    // esp_err_t ret = nvs_flash_init();
+    // if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+    //     ESP_ERROR_CHECK(nvs_flash_erase());
+    //     ret = nvs_flash_init();
+    // }
+    // ESP_ERROR_CHECK(ret);
+    // wifi_start();
 
-    mqtt_start();
+    // mqtt_start();
 
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
-    mqtt_subscribe("/embarcados/luz");
-    mqtt_subscribe("/embarcados/alarme");
+    // vTaskDelay(1000 / portTICK_PERIOD_MS);
+    // mqtt_subscribe("/embarcados/luz");
+    // mqtt_subscribe("/embarcados/alarme");
 
-    mqtt_publish("/embarcados/temperatura", "40");
-    mqtt_publish("/embarcados/movimento", "1");
+    // mqtt_publish("/embarcados/temperatura", "40");
+    // mqtt_publish("/embarcados/movimento", "1");
 
-    while(1) {
-        printf("Luz: %d\n", isLuzLigada);
-        vTaskDelay(200 / portTICK_PERIOD_MS);
-    }
+    // while(1) {
+    //     printf("Luz: %d\n", isLuzLigada);
+    //     vTaskDelay(200 / portTICK_PERIOD_MS);
+    // }
+
     // float umidade, temperatura;
     // gpio_set_direction(DHT_GPIO, GPIO_MODE_INPUT);
     // gpio_set_pull_mode(DHT_GPIO, GPIO_PULLUP_ONLY);
@@ -57,5 +60,17 @@ void app_main(void)
     //     }
     //     vTaskDelay(1000 / portTICK_PERIOD_MS);
     // }
+
+    while (1)
+    {
+        if(hasPresence(PIR_PIN)) {
+            printf("Presente\n");
+        }else {
+            printf("Ausente\n");
+        }
+    }
+    
     
 }
+
+
