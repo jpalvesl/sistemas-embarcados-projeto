@@ -9,23 +9,5 @@
   ],
   "idf.portWin": "COM3",
   "idf.pythonBinPathWin": "C:\\Users\\jpalvesl\\.espressif\\python_env\\idf4.4_py3.8_env\\Scripts\\python.exe",
-  "idf.toolsPathWin": "C:\\Users\\jpalvesl\\.espressif",
-  "idf.flashType": "UART",
-  "files.associations": {
-    "esp_event.h": "c",
-    "nvs_flash.h": "c",
-    "event_groups.h": "c",
-    "queue.h": "c",
-    "task.h": "c",
-    "mqtt_client.h": "c",
-    "esp_bt.h": "c",
-    "mqtt-lib.h": "c",
-    "ets_sys.h": "c",
-    "string.h": "c",
-    "esp_log.h": "c",
-    "esp_idf_lib_helpers.h": "c",
-    "freertos.h": "c",
-    "netdb.h": "c",
-    "semphr.h": "c"
-  }
+  "idf.toolsPathWin": "C:\\Users\\jpalvesl\\.espressif"
 }

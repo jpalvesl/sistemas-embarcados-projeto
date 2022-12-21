@@ -29,6 +29,7 @@
 #define TAG "MQTT"
 
 extern int isLuzLigada;
+extern int isAlarmeLigado;
 
 static void log_error_if_nonzero(const char *message, int error_code)
 {
@@ -69,8 +70,13 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         
         sprintf(topico, "%.*s\r", event->topic_len, event->topic);
         sprintf(mensagem, "%.*s\r", event->data_len, event->data);
+        int lenTopico = strlen(topico);
+        topico[lenTopico-1] = '\0';
 
-        int isTopicoLuz = strcmp(topico, "/embarcados/luz");
+
+
+        int isTopicoLuz = strcmp(topico, "/embarcados/luz") == 0;
+        int isTopicoAlarme = strcmp(topico, "/embarcados/alarme") == 0;
 
         if (isTopicoLuz) {
             if (mensagem[0] == '1') {
@@ -80,6 +86,15 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
             else {
                 isLuzLigada = 0;
                 printf("Apaga a luz\n");
+            }
+        } else if (isTopicoAlarme) {
+            if (mensagem[0] == '1') {
+                isAlarmeLigado = 1;
+                printf("Alarme Ligado\n");
+            } 
+            else {
+                isAlarmeLigado = 0;
+                printf("Alarme desligado\n");
             }
         } else {
             printf("Topico %s não encontrado\n", topico);
