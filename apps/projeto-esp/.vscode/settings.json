@@ -9,5 +9,14 @@
   ],
   "idf.portWin": "COM3",
   "idf.pythonBinPathWin": "C:\\Users\\jpalvesl\\.espressif\\python_env\\idf4.4_py3.8_env\\Scripts\\python.exe",
-  "idf.toolsPathWin": "C:\\Users\\jpalvesl\\.espressif"
+  "idf.toolsPathWin": "C:\\Users\\jpalvesl\\.espressif",
+  "idf.flashType": "UART",
+  "files.associations": {
+    "mqtt-lib.h": "c",
+    "dht.h": "c",
+    "wifi.h": "c",
+    "ledc.h": "c",
+    "task.h": "c",
+    "nvs_flash.h": "c"
+  }
 }

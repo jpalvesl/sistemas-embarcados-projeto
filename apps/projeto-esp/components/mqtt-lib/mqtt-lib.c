@@ -30,6 +30,9 @@
 
 extern int isLuzLigada;
 extern int isAlarmeLigado;
+extern float umidade;
+extern float temperatura;
+extern int deveLerTemperaturaUmidade;
 
 static void log_error_if_nonzero(const char *message, int error_code)
 {
@@ -67,6 +70,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         // teste com o topico /embarcados/luz
         char topico[50];
         char mensagem[200];
+        char mensagemInfo[200];
         
         sprintf(topico, "%.*s\r", event->topic_len, event->topic);
         sprintf(mensagem, "%.*s\r", event->data_len, event->data);
@@ -77,25 +81,30 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
         int isTopicoLuz = strcmp(topico, "/embarcados/luz") == 0;
         int isTopicoAlarme = strcmp(topico, "/embarcados/alarme") == 0;
+        int isTopicoDados = strcmp(topico, "/embarcados/dados") == 0;
 
         if (isTopicoLuz) {
             if (mensagem[0] == '1') {
                 isLuzLigada = 1;
-                printf("Acende a luz\n");
             } 
             else {
                 isLuzLigada = 0;
-                printf("Apaga a luz\n");
             }
         } else if (isTopicoAlarme) {
             if (mensagem[0] == '1') {
                 isAlarmeLigado = 1;
-                printf("Alarme Ligado\n");
             } 
             else {
                 isAlarmeLigado = 0;
-                printf("Alarme desligado\n");
             }
+        } else if (isTopicoDados) {
+            if (mensagem[0] == '1') {
+                sprintf(mensagemInfo, "{\"temperatura\": %f, \"umidade\": %f, \"is_luz_ligada\": %d, \"is_alarme_ligado\": %d}", temperatura, umidade, isLuzLigada, isAlarmeLigado);
+                
+                deveLerTemperaturaUmidade = 1;
+                vTaskDelay(1000 / portTICK_PERIOD_MS);
+                mqtt_publish("/embarcados/info", mensagemInfo);
+            } 
         } else {
             printf("Topico %s não encontrado\n", topico);
         }
