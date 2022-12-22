@@ -18,13 +18,13 @@
 #define BUZZER_PIN GPIO_NUM_26
 #define DHT_PIN GPIO_NUM_27
 #define SENSOR_C GPIO_NUM_14
+#define BOTAO_LUZ_PIN GPIO_NUM_12
 
 int isLuzLigada = 0;
 int isAlarmeLigado = 0;
 float umidade, temperatura;
 int deveLerTemperaturaUmidade = 1;
 int alarmeDisparado = 0;
-
 
 void app_main(void)
 {
@@ -55,6 +55,8 @@ void app_main(void)
     gpio_set_pull_mode(DHT_PIN, GPIO_PULLUP_ONLY);
 
     gpio_set_direction(SENSOR_C, GPIO_MODE_INPUT);
+    gpio_set_direction(BOTAO_LUZ_PIN, GPIO_MODE_INPUT);
+    gpio_set_pull_mode(BOTAO_LUZ_PIN, GPIO_PULLDOWN_ONLY);
 
 
     // Pooling
@@ -76,7 +78,18 @@ void app_main(void)
                 isAlarmeLigado = 1;
             }
             while (gpio_get_level(SENSOR_C));
-            
+        }
+
+        // Leitura do botao
+        if (gpio_get_level(BOTAO_LUZ_PIN)) {
+            if (isLuzLigada) {
+                gpio_set_level(BOTAO_LUZ_PIN, 0);
+                isLuzLigada = 0;
+            } else {
+                gpio_set_level(BOTAO_LUZ_PIN, 1);
+                isLuzLigada = 1;
+            }
+            while (gpio_get_level(BOTAO_LUZ_PIN));
         }
         
         if (isLuzLigada) {
@@ -87,11 +100,18 @@ void app_main(void)
         if (isAlarmeLigado) {
             gpio_set_level(ALARME_LED_PIN, 1);
             if (hasPresence(PIR_PIN)) {
+                alarmeDisparado++;
                 gpio_set_level(BUZZER_PIN, 1);
             }
         } else{
             gpio_set_level(ALARME_LED_PIN, 0);
             gpio_set_level(BUZZER_PIN, 0);
+            alarmeDisparado = 0;
+        }
+
+        // Alarme acionado
+        if (alarmeDisparado == 1) {
+            mqtt_publish("/embarcados/alarme_acionado", "1");
         }
         vTaskDelay(1);
     }
