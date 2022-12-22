@@ -1,0 +1,16 @@
+{
+  "name": "mqtt-cli",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "mqtt": "^4.3.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
