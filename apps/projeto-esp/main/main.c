@@ -17,7 +17,7 @@
 #define ALARME_LED_PIN GPIO_NUM_33
 #define BUZZER_PIN GPIO_NUM_26
 #define DHT_PIN GPIO_NUM_27
-#define SENSOR_C GPIO_NUM_14
+#define SENSOR_CAP_ALARME GPIO_NUM_14
 #define BOTAO_LUZ_PIN GPIO_NUM_12
 
 int isLuzLigada = 0;
@@ -54,9 +54,11 @@ void app_main(void)
     gpio_set_direction(DHT_PIN, GPIO_MODE_INPUT);
     gpio_set_pull_mode(DHT_PIN, GPIO_PULLUP_ONLY);
 
-    gpio_set_direction(SENSOR_C, GPIO_MODE_INPUT);
+    gpio_set_direction(SENSOR_CAP_ALARME, GPIO_MODE_INPUT);
     gpio_set_direction(BOTAO_LUZ_PIN, GPIO_MODE_INPUT);
     gpio_set_pull_mode(BOTAO_LUZ_PIN, GPIO_PULLDOWN_ONLY);
+
+    gpio_set_direction(RELE_PIN, GPIO_MODE_OUTPUT);
 
 
     // Pooling
@@ -69,7 +71,7 @@ void app_main(void)
         }
 
         // Leitura do sensor capacitivo
-        if (gpio_get_level(SENSOR_C)) {
+        if (gpio_get_level(SENSOR_CAP_ALARME)) {
             if (isAlarmeLigado) {
                 gpio_set_level(ALARME_LED_PIN, 0);
                 isAlarmeLigado = 0;
@@ -77,7 +79,7 @@ void app_main(void)
                 gpio_set_level(ALARME_LED_PIN, 1);
                 isAlarmeLigado = 1;
             }
-            while (gpio_get_level(SENSOR_C));
+            while (gpio_get_level(SENSOR_CAP_ALARME));
         }
 
         // Leitura do botao
