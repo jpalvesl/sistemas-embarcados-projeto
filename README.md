@@ -25,7 +25,16 @@
 ## 6. Resumo das arquiteturas
 Todo _Hardware_ apresentado no tópico 6.1 foi construído no sistema WOKWI e o _Firmware e/ou Software/App_ utilizando o Visual Studio Code, com arquitetura do ESP-IDF.
 
-### 6.1. Desenhos
+### 6.1 Componentes
+1. ESP32
+2. Buzzer Ativo
+3. LED
+4. Sensor Touch (TTP223)
+5. Sensor de presença (PIR HC-SR501)
+6. Switch 12x12x7.5
+7. Sensor de umidade e temperatura DHT11
+
+### 6.2. Montagem
 - Circuito Montado
 
 ![circuito](./doc/circuito-montado.png)
