@@ -91,7 +91,17 @@ Ao longo do desenvolvimento foram encontradas algumas dificuldades, pois a maior
 1. Baixar o repositório
 
 ```sh
-git clone  https://github.com/jpalvesl/sistemas-embarcados-projeto
+git clone https://github.com/jpalvesl/sistemas-embarcados-projeto
+```
+
+2. Entrar na pasta da CLI
+```sh
+cd apps/mqtt-cli
+```
+
+3. Rodar o CLI
+```sh
+node src/index.js
 ```
 
 ## 🧐 Tecnologias usadas?
