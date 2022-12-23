@@ -1,5 +1,27 @@
 # Sistemas Embarcados - 2022.2
 
+<p align="center">
+  <img alt="Your icon here" src="https://cdn-icons-png.flaticon.com/128/4176/4176850.png" width="200"/>
+</p>
+<h1 align="center">
+  Automação Residencial
+</h1>
+
+<!-- Badges -->
+<p align="center">
+
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/jpalvesl/sistemas-embarcados-projeto?color=black">
+
+  <!-- GitHub repo size -->
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/jpalvesl/sistemas-embarcados-projeto">
+
+  <!-- Social -->  
+  <a href="https://github.com/jpalvesl/ecoleta/stargazers">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/jpalvesl/sistemas-embarcados-projeto?style=social">
+  </a>
+
+  <!-- more badges here -> https://gist.github.com/tterb/982ae14a9307b80117dbf49f624ce0e8 -->
+
 ## 1. Instituição
 
 -   Instituto Federal da Paraíba - IFPB
@@ -16,11 +38,16 @@
 -   [Myrlla Lucas Pereira](https://github.com/myrlla)
 
 ## 4. Descrição do projeto
+É aplicação residencial, utilizando o microcontrolador ESP32. Que visa a ativação de alarme e ligação das lâmpadas pela internet ou pelo próprio ESP, além da coleta das informações vindas dos sensores, para monitoramento à distância via internet, no caso pelo protocolo MQTT.
 
 ## 5. Objetivos
 
 ### 5.1. Geral
+Atraves do MQTT fazer uma aplicação ter interações de forma remota, visando a comodidade do usuário, como também ser de facil extensão atraves da adição de novos sensores.
 ### 5.2. Específicos
+- Realizar comunicação via internet
+- Fazer uma forma de interação mais simples para o usuário final
+
 
 ## 6. Resumo das arquiteturas
 Todo _Hardware_ apresentado no tópico 6.1 foi construído no sistema WOKWI e o _Firmware e/ou Software/App_ utilizando o Visual Studio Code, com arquitetura do ESP-IDF.
@@ -52,9 +79,43 @@ Todo _Hardware_ apresentado no tópico 6.1 foi construído no sistema WOKWI e o 
 ![bloco](./doc/diagrama-de-bloco.png)
 
 ## 9. Resumo dos Resultados
+O objetivo básico do projeto foi alcançado. Os sensores de movimento(HC-SR501) e de umidade e temperatura(DHT11) foram montados de forma correta e capazes de capturar as informações necessárias para o funcionamento do protótipo, como a movimentação para o disparo do alarme e ligação das lâmpadas. Além da distribuição desses dados(Temperatura e presença) pela internet via protocolo MQTT. O projeto também conseguiu fazer a comunicação do ESP32 com a internet a fim de controle dos componentes da aplicação. Outra funcionalidade alcançada foi a instalação de um botão físico que liga o relé e ativa as luzes presencialmente, já para a ativação presencial do Buzzer(alarme) foi utilizado o sensor de toque TTP223. Com ativação do alarme tanto via física como via internet, ele utilizará o sensor de presença para verificar e se houver presença disparar o som do Buzzer e exibir uma mensagem na CLI informando que o alarme foi acionado.
 
 ## 10. Conclusão
+Com a realização do projeto foi possível concluir, que microcontroladores são grandes facilitadores no desenvolvimento de automações residenciais. Já que nos dias de hoje, casas inteligentes são cada vez mais desejo de consumo. 
+Ao longo do desenvolvimento foram encontradas algumas dificuldades, pois a maioria dos materiais disponíveis são para Arduíno, mas foi possível fazer utilizando semelhanças entre os dois microcontroladores. Outra dificuldade foi a comunicação com a internet, que por fim foi escolhido usar o protocolo via MQTT. Foi necessário fazer a troca da lâmpada por um LED, por motivos de segurança. Para trabalhos futuros, seria interessante a criação de uma interface mais amigável, pois para conseguir implementar o sistema web ou mobile só conseguimos a conexão usando o websocket e para conectar com o esp só conseguimos usando o tcp.Então tivemos dificuldade em criar uma página web com MQTT usando websocket por conta do problema de conexão, assim tendo que implementar usando tcp.
+
+
+## 11 Como usar
+
+1. Baixar o repositório
+
+```sh
+git clone  https://github.com/jpalvesl/sistemas-embarcados-projeto
+```
+
+## 🧐 Tecnologias usadas?
+
+### :building_construction: Tecnologias usadas
+- [ESP-IDF](https://pt-br.reactjs.org/)
+- [Nodejs](https://nodejs.org/en/)
+</p>
+
+### :package: Pacotes usados no Projeto ESP
+- [DHT](https://github.com/UncleRus/esp-idf-lib/tree/master/components/dht)
+
+### :package: Pacotes usados na CLI
+- [DHT](https://github.com/mqttjs/MQTT.js)
+
+
+### :open_file_folder: Aplicações separadas
+- [Projeto ESP](https://github.com/jpalvesl/sistemas-embarcados-projeto/tree/main/apps/projeto-esp)
+- [CLI](https://github.com/jpalvesl/sistemas-embarcados-projeto/tree/main/apps/mqtt-cli)
 
 ---
 
+Feito com amor por 💙 By [Iasmin Santos](https://github.com/iasminsantosx),  [João Lima](https://github.com/jpalvesl) e  [Myrlla Lucas](https://github.com/myrlla)
+
+
 Projeto feito para a disciplina de Sistemas Embarcados do semestre 2022.2 Engenharia de Computação.
+

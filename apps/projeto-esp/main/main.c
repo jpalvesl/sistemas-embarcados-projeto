@@ -22,7 +22,8 @@
 
 int isLuzLigada = 0;
 int isAlarmeLigado = 0;
-float umidade, temperatura;
+float umidade; 
+float temperatura;
 int deveLerTemperaturaUmidade = 1;
 int alarmeDisparado = 0;
 
@@ -58,7 +59,6 @@ void app_main(void)
     gpio_set_direction(BOTAO_LUZ_PIN, GPIO_MODE_INPUT);
     gpio_set_pull_mode(BOTAO_LUZ_PIN, GPIO_PULLDOWN_ONLY);
 
-    gpio_set_direction(RELE_PIN, GPIO_MODE_OUTPUT);
 
 
     // Pooling
@@ -67,7 +67,7 @@ void app_main(void)
         //Leitura dos dados
         if (deveLerTemperaturaUmidade) {
             dht_read_float_data(SENSOR_TYPE, DHT_PIN, &umidade, &temperatura);
-            deveLerTemperaturaUmidade = 0;
+            deveLerTemperaturaUmidade--;
         }
 
         // Leitura do sensor capacitivo
