@@ -7,6 +7,8 @@
   Automação Residencial
 </h1>
 
+> Vídeo da apresentação [link](https://youtu.be/3gIauqteiv0)
+
 <!-- Badges -->
 <p align="center">
 
