@@ -116,7 +116,7 @@ node src/index.js
 - [DHT](https://github.com/UncleRus/esp-idf-lib/tree/master/components/dht)
 
 ### :package: Pacotes usados na CLI
-- [DHT](https://github.com/mqttjs/MQTT.js)
+- [MQTT.js](https://github.com/mqttjs/MQTT.js)
 
 
 ### :open_file_folder: Aplicações separadas
